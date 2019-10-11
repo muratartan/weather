@@ -9,13 +9,12 @@ Vue.use(Vuex);
 const store = new Vuex.Store({
 
     state : {
-      city : "",
       weather : null
     },
 
     getters : {
       sendWeather(state) {
-        return state.city
+        return state.weather
       }
 
     },
@@ -23,8 +22,7 @@ const store = new Vuex.Store({
     mutations : {
 
       getLocation(state,data) {
-        state.city = data.city;
-        state.weather = data.weather;
+        state.weather = data;
         console.log(state.weather);
       }
 

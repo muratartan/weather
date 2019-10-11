@@ -8,9 +8,10 @@
             </div>
             <div class="col-md-8">
                 <div class="card-body">
-                    <h5 class="card-title">Card title {{city}}</h5>
-                    <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                    <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                    <h5 class="card-title">{{sendWeather.city}}</h5>
+                    <p class="card-text"><span>{{sendWeather.main_condition}}</span><span class="pl-3">{{sendWeather.temp}}</span></p>
+                    <p class="card-text"><small>{{sendWeather.description}}</small></p>
+                  <p class="card-text"><span><img src="https://img.icons8.com/officexs/20/000000/dew-point.png"> {{sendWeather.humidity}}</span><span class="pl-5"><img src="https://img.icons8.com/officexs/20/000000/atmospheric-pressure.png"> {{sendWeather.pressure}}</span></p>
                 </div>
             </div>
         </div>
@@ -24,14 +25,19 @@
 
 
    export default {
-       data() {
+
+     data() {
            return {
-               city : ""
+
            }
        },
-     created() {
-         return this.city = this.$store.getters.sendWeather
+     computed: {
+       sendWeather () {
+         return this.$store.getters.sendWeather
+       }
      }
+
+
 
 
    }
@@ -48,5 +54,9 @@
     .card {
         margin-top: 250px;
     }
+
+  .col-md-8 {
+    background-color: whitesmoke;
+  }
 
 </style>

@@ -44,8 +44,8 @@
         data() {
             return {
                 location : "",
-                city: "",
                 weather : {
+                    city : "",
                     temp : "",
                     temp_max : "",
                     temp_min : "",
@@ -62,24 +62,24 @@
         },
         methods : {
             setLocation() {
-                let url = "http://api.openweathermap.org/data/2.5/weather?q="+this.location+"&APPID=APIKEY";
+                let url = "http://api.openweathermap.org/data/2.5/weather?q="+this.location+"&APPID=39eab19b26cc141b0f4f643549c56dd7";
                 axios.get(url)
                     .then(response => {
                         console.log(response);
                         let data = response.data;
                         let kelvin = 273.15;
-                        this.city= data.name;
-
-                        this.weather.temp = data.main.temp-kelvin;
+                        this.weather.city= data.name;
+                        this.weather.temp = Math.round(data.main.temp-kelvin);
                         this.weather.temp_max = data.main.temp_max-kelvin;
                         this.weather.temp_min = data.main.temp_min-kelvin;
                         this.weather.pressure = data.main.pressure;
                         this.weather.humidity = data.main.humidity;
                         this.weather.main_condition = data.weather[0].main;
                         this.weather.icon = data.weather[0].icon;
+                        this.weather.description = data.weather[0].description;
                         this.weather.wind_speed = data.wind.speed;
                     });
-                this.$store.commit("getLocation", {...this.city ,...this.weather});
+                this.$store.commit("getLocation", this.weather);
             }
         }
 
