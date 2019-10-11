@@ -9,7 +9,7 @@ Vue.use(Vuex);
 const store = new Vuex.Store({
 
     state : {
-      weather : null
+      weather : ""
     },
 
     getters : {
@@ -23,7 +23,14 @@ const store = new Vuex.Store({
 
       getLocation(state,data) {
         state.weather = data;
-        console.log(state.weather);
+
+        setTimeout(()=> {
+          axios.patch("https://", state.weather)
+            .then(response => {
+              console.log(response)
+            });
+        },1500)
+
       }
 
     },

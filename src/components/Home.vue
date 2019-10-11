@@ -62,7 +62,7 @@
         },
         methods : {
             setLocation() {
-                let url = "http://api.openweathermap.org/data/2.5/weather?q="+this.location+"&APPID=39eab19b26cc141b0f4f643549c56dd7";
+                let url = "http://api.openweathermap.org/data/2.5/weather?q="+this.location+"&APPID=APIKEY";
                 axios.get(url)
                     .then(response => {
                         console.log(response);
@@ -78,7 +78,11 @@
                         this.weather.icon = data.weather[0].icon;
                         this.weather.description = data.weather[0].description;
                         this.weather.wind_speed = data.wind.speed;
+
+
+
                     });
+
                 this.$store.commit("getLocation", this.weather);
             }
         }
