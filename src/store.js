@@ -13,9 +13,7 @@ const store = new Vuex.Store({
     },
 
     getters : {
-      sendWeather(state) {
-        return state.weather
-      }
+
 
     },
 
@@ -25,11 +23,11 @@ const store = new Vuex.Store({
         state.weather = data;
 
         setTimeout(()=> {
-          axios.patch("https://", state.weather)
+          axios.patch("https://...", state.weather)
             .then(response => {
               console.log(response)
             });
-        },1500)
+        },1000)
 
       }
 
