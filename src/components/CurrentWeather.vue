@@ -21,8 +21,14 @@
             </div>
           <hr>
           <div class="col-md-12">
-            <p>beş günlük için tıkla</p>
+            <router-link
+              tag="p"
+              to="/fiveday">
+              <p>Click here for five days forecast</p>
+            </router-link>
           </div>
+
+
         </div>
     </div>
 </div>
@@ -43,9 +49,13 @@
            }
        },
 
+     methods : {
+
+     },
+
      created() {
        setTimeout(()=> {
-         axios.get("https://...")
+         axios.get("https://weather-appp.firebaseio.com/weather.json")
            .then(response => {
              console.log(response);
              this.weather =response.data;
@@ -86,6 +96,7 @@
     display: flex;
     justify-content: center;
     height: 35px;
+    cursor: pointer;
   }
   .col-md-12 p{
     margin: auto;

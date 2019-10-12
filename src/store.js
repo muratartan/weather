@@ -9,7 +9,8 @@ Vue.use(Vuex);
 const store = new Vuex.Store({
 
     state : {
-      weather : ""
+      weather : "",
+      forecast : ""
     },
 
     getters : {
@@ -23,13 +24,14 @@ const store = new Vuex.Store({
         state.weather = data;
 
         setTimeout(()=> {
-          axios.patch("https://...", state.weather)
+          axios.patch("https://weather-appp.firebaseio.com/weather.json", state.weather)
             .then(response => {
               console.log(response)
             });
         },1000)
 
-      }
+      },
+
 
     },
 
