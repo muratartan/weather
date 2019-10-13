@@ -12,6 +12,8 @@
                             v-model="location"
                             type="text"
                             class="form-control"
+                            @keyup.enter="$router.push('/currentWeather')"
+                            @keydown.enter="setLocation"
                             placeholder="Search for location..."
                             aria-describedby="button-addon2">
                     <div class="input-group-append">
@@ -63,7 +65,7 @@
         },
         methods : {
             setLocation() {
-                let url1 = "http://api.openweathermap.org/data/2.5/weather?q="+this.location+"&APPID=39eab19b26cc141b0f4f643549c56dd7";
+                let url1 = "http://api.openweathermap.org/data/2.5/weather?q="+this.location+"&APPID=APIKEY";
                 axios.get(url1)
                     .then(response => {
                         console.log(response);
@@ -84,7 +86,7 @@
                     });
 
 
-              let url2 = "http://api.openweathermap.org/data/2.5/forecast?q="+this.location+"&APPID=39eab19b26cc141b0f4f643549c56dd7";
+              let url2 = "http://api.openweathermap.org/data/2.5/forecast?q="+this.location+"&APPID=APIKEY";
               axios.get(url2)
                 .then(response => {
                   console.log(response);

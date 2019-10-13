@@ -7,7 +7,7 @@
   <div class="card mb-2 mt-5 mx-auto" style="max-width: 540px;" v-for="list in lists">
     <div class="row no-gutters">
       <div class="col-md-4">
-        <img src="../photos/icon.png" class="card-img" alt="...">
+        <img :src="icon='http://openweathermap.org/img/wn/'+list.weather[0].icon+'@2x.png'" class="card-img" alt="...">
       </div>
       <div class="col-md-8">
         <div class="card-body">
@@ -44,12 +44,13 @@
             lists : [],
             kelvin : 273.15,
             city : "",
-            country : ""
+            country : "",
+            icon2 : ""
 
           }
         },
         created() {
-          axios.get("https://weather-appp.firebaseio.com/forecast.json")
+          axios.get("https://...")
             .then(response => {
               console.log(response);
               console.log("forecast geldi");
@@ -68,3 +69,21 @@
 <style scoped>
 
 </style>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

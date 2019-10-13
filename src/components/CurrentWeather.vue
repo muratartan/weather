@@ -8,7 +8,7 @@
     <div v-else class="card mb-3 mx-auto" style="max-width: 540px;">
         <div class="row no-gutters">
             <div class="col-md-4">
-                <img src="../photos/icon.png" class="card-img" alt="...">
+                <img :src="icon='http://openweathermap.org/img/wn/'+weather.icon+'@2x.png'" class="card-img" alt="...">
             </div>
             <div class="col-md-8">
                 <div class="card-body">
@@ -44,7 +44,8 @@
      data() {
            return {
 
-             weather : ""
+             weather : "",
+
            }
        },
 
@@ -54,10 +55,11 @@
 
      created() {
        setTimeout(()=> {
-         axios.get("https://weather-appp.firebaseio.com/weather.json")
+         axios.get("https://...")
            .then(response => {
              console.log(response);
              this.weather =response.data;
+
 
            })
        },2500);
