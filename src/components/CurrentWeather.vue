@@ -17,7 +17,6 @@
                     <p class="card-text"><small>{{weather.description}}</small></p>
                   <p class="card-text"><span><img src="https://img.icons8.com/officexs/20/000000/dew-point.png"> {{weather.humidity}}</span><span class="pl-5"><img src="https://img.icons8.com/officexs/20/000000/atmospheric-pressure.png"> {{weather.pressure}}</span></p>
                 </div>
-
             </div>
           <hr>
           <div class="col-md-12">
