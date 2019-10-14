@@ -8,7 +8,7 @@
   <div v-else>
     <div class="card mb-3 mx-auto" style="max-width: 540px;">
         <div class="row no-gutters">
-            <div class="col-md-4" style="display: flex; align-items: center;justify-content: center; background-color: floralwhite">
+            <div class="col-md-4" style="display: flex; align-items: center;justify-content: center;background-color: #dcfffc;">
                 <img style="width: 130px" :src="icon='http://openweathermap.org/img/wn/'+weather.icon+'@2x.png'" class="card-img" alt="...">
             </div>
             <div class="col-md-8">
@@ -22,12 +22,8 @@
           <hr>
         </div>
     </div>
-    <div class="col-md-12">
-      <router-link
-        tag="p"
-        to="/fiveday">
-        <p>Click here for five days forecast</p>
-      </router-link>
+    <div class="mx-auto mb-4 mt-3" style="width: 540px">
+      <button @click="$router.push('/fiveday')" class="btn btn-outline-light btn-block">click here for current weather</button>
     </div>
   </div>
 
@@ -56,7 +52,7 @@
 
      created() {
        setTimeout(()=> {
-         axios.get("https://weather-appp.firebaseio.com/weather.json")
+         axios.get("https://...")
            .then(response => {
              console.log(response);
              this.weather =response.data;
@@ -83,10 +79,11 @@
 
     .card {
         margin-top: 250px;
+        color: #000069;
     }
 
   .col-md-8 {
-    background-color: floralwhite;
+    background-color: #dcfffc;
   }
 
   .container-fluid {
@@ -100,14 +97,11 @@
     display: flex;
     justify-content: center;
   }
-  .col-md-12{
-    display: flex;
-    justify-content: center;
-    height: 35px;
-    cursor: pointer;
-  }
-  .col-md-12 p{
-    margin: auto;
+
+
+  button {
+    color: darkblue;
+
   }
 
 

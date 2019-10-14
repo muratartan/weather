@@ -65,7 +65,7 @@
         },
         methods : {
             setLocation() {
-                let url1 = "http://api.openweathermap.org/data/2.5/weather?q="+this.location+"&APPID=39eab19b26cc141b0f4f643549c56dd7";
+                let url1 = "http://api.openweathermap.org/data/2.5/weather?q="+this.location+"&APPID=APIKEY";
                 axios.get(url1)
                     .then(response => {
                         console.log(response);
@@ -85,13 +85,13 @@
                     });
               this.$store.commit("getLocation", this.weather);
 
-              let url2 = "http://api.openweathermap.org/data/2.5/forecast?q="+this.location+"&APPID=39eab19b26cc141b0f4f643549c56dd7";
+              let url2 = "http://api.openweathermap.org/data/2.5/forecast?q="+this.location+"&APPID=APIKEY";
               axios.get(url2)
                 .then(response => {
                   console.log(response);
                   this.forecast = response.data;
 
-                  axios.patch("https://weather-appp.firebaseio.com/forecast.json", this.forecast)
+                  axios.patch("https://...", this.forecast)
                     .then(response => {
                       console.log(response)
                     });

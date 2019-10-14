@@ -24,7 +24,7 @@ const store = new Vuex.Store({
         state.weather = data;
 
         setTimeout(()=> {
-          axios.patch("https://weather-appp.firebaseio.com/weather.json", state.weather)
+          axios.patch("https://...", state.weather)
             .then(response => {
               console.log(response)
             });
