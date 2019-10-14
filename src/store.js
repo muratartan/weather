@@ -28,7 +28,7 @@ const store = new Vuex.Store({
             .then(response => {
               console.log(response)
             });
-        },1000)
+        },4000)
 
       },
 

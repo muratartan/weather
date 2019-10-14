@@ -65,7 +65,7 @@
         },
         methods : {
             setLocation() {
-                let url1 = "http://api.openweathermap.org/data/2.5/weather?q="+this.location+"&APPID=APIKEY";
+                let url1 = "http://api.openweathermap.org/data/2.5/weather?q="+this.location+"&APPID=39eab19b26cc141b0f4f643549c56dd7";
                 axios.get(url1)
                     .then(response => {
                         console.log(response);
@@ -82,11 +82,10 @@
                         this.weather.description = data.weather[0].description;
                         this.weather.wind_speed = data.wind.speed;
 
-
                     });
+              this.$store.commit("getLocation", this.weather);
 
-
-              let url2 = "http://api.openweathermap.org/data/2.5/forecast?q="+this.location+"&APPID=APIKEY";
+              let url2 = "http://api.openweathermap.org/data/2.5/forecast?q="+this.location+"&APPID=39eab19b26cc141b0f4f643549c56dd7";
               axios.get(url2)
                 .then(response => {
                   console.log(response);
@@ -101,7 +100,7 @@
 
 
 
-                this.$store.commit("getLocation", this.weather);
+
             },
 
 

@@ -1,13 +1,16 @@
 <template>
 
 <div class="container-fluid mt-5">
-
-  <h1 class="pt-5 text-center">{{city}}, {{country}}</h1>
+  <div class="img">
+    <img src="../photos/photo_3.jpg" alt="">
+  </div>
+  <div style="position: relative">
+  <h1 class="card text-center mx-auto">{{city}}, {{country}}</h1>
 
   <div class="card mb-2 mt-5 mx-auto" style="max-width: 540px;" v-for="list in lists">
     <div class="row no-gutters">
-      <div class="col-md-4">
-        <img :src="icon='http://openweathermap.org/img/wn/'+list.weather[0].icon+'@2x.png'" class="card-img" alt="...">
+      <div class="col-md-4" style="display: flex; align-items: center;justify-content: center">
+        <img style="width: 130px" :src="icon='http://openweathermap.org/img/wn/'+list.weather[0].icon+'@2x.png'" class="card-img" alt="...">
       </div>
       <div class="col-md-8">
         <div class="card-body">
@@ -18,6 +21,7 @@
         </div>
       </div>
     </div>
+  </div>
   </div>
 
 </div>
@@ -50,7 +54,7 @@
           }
         },
         created() {
-          axios.get("https://...")
+          axios.get("https://weather-appp.firebaseio.com/forecast.json")
             .then(response => {
               console.log(response);
               console.log("forecast geldi");
@@ -67,6 +71,31 @@
 
 
 <style scoped>
+
+  .img img{
+    height: 100vh;
+    width: 100vw;
+    position: fixed;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+  }
+
+  h1 {
+    width: 540px;
+    background-color: floralwhite;
+    margin-top: 50px;
+    color: firebrick;
+
+  }
+
+  .card {
+    background-color: floralwhite;
+    color: darkslategray;
+    box-shadow: 2px 2px 7px 3px #a09b9b;
+  }
+
 
 </style>
 
