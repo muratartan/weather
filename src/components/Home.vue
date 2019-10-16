@@ -46,67 +46,15 @@
         data() {
             return {
                 location : "",
-                weather : {
-                    city : "",
-                    temp : "",
-                    temp_max : "",
-                    temp_min : "",
-                    pressure : "",
-                    humidity : "",
-                    main_condition : "",
-                    wind_speed : "",
-                    icon : ""
-                },
-                forecast : ""
             }
-
-
-
         },
         methods : {
             setLocation() {
-                let url1 = "http://api.openweathermap.org/data/2.5/weather?q="+this.location+"&APPID=APIKEY";
-                axios.get(url1)
-                    .then(response => {
-                        console.log(response);
-                        let data = response.data;
-                        let kelvin = 273.15;
-                        this.weather.city= data.name;
-                        this.weather.temp = Math.round(data.main.temp-kelvin);
-                        this.weather.temp_max = data.main.temp_max-kelvin;
-                        this.weather.temp_min = data.main.temp_min-kelvin;
-                        this.weather.pressure = data.main.pressure;
-                        this.weather.humidity = data.main.humidity;
-                        this.weather.main_condition = data.weather[0].main;
-                        this.weather.icon = data.weather[0].icon;
-                        this.weather.description = data.weather[0].description;
-                        this.weather.wind_speed = data.wind.speed;
-
-                    });
-              this.$store.commit("getLocation", this.weather);
-
-              let url2 = "http://api.openweathermap.org/data/2.5/forecast?q="+this.location+"&APPID=APIKEY";
-              axios.get(url2)
-                .then(response => {
-                  console.log(response);
-                  this.forecast = response.data;
-
-                  axios.patch("https://...", this.forecast)
-                    .then(response => {
-                      console.log(response)
-                    });
-
-                });
-
-
-
-
+              localStorage.setItem("city" , this.location)
             },
-
-
         }
-
     }
+
 </script>
 
 <style scoped>

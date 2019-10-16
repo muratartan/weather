@@ -58,14 +58,26 @@
           }
         },
         created() {
-          axios.get("https://...")
+
+          let url2 = "http://api.openweathermap.org/data/2.5/forecast?q="+localStorage.getItem("city")+"&APPID=APIKEY";
+          axios.get(url2)
             .then(response => {
               console.log(response);
-              console.log("forecast geldi");
-              this.lists = response.data.list;
-              this.city = response.data.city.name;
-              this.country = response.data.city.country;
+              let forecast = response.data;
+              this.lists = forecast.list;
+              this.city = forecast.city.name;
+              this.country = forecast.city.country;
+
             });
+
+
+
+
+
+
+
+
+
         }
     }
 </script>

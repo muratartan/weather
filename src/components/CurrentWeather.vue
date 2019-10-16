@@ -23,7 +23,7 @@
         </div>
     </div>
     <div class="mx-auto mb-4 mt-3" style="width: 540px">
-      <button @click="$router.push('/fiveday')" class="btn btn-outline-light btn-block">click here for current weather</button>
+      <button @click="$router.push('/fiveday')" class="btn btn-outline-light btn-block">click here for 5 day / 3 hour forecast</button>
     </div>
   </div>
 
@@ -41,7 +41,17 @@
      data() {
            return {
 
-             weather : "",
+             weather : {
+               city : "",
+               temp : "",
+               temp_max : "",
+               temp_min : "",
+               pressure : "",
+               humidity : "",
+               main_condition : "",
+               wind_speed : "",
+               icon : ""
+             },
 
            }
        },
@@ -51,15 +61,25 @@
      },
 
      created() {
-       setTimeout(()=> {
-         axios.get("https://...")
-           .then(response => {
-             console.log(response);
-             this.weather =response.data;
 
+       let url1 = "http://api.openweathermap.org/data/2.5/weather?q="+localStorage.getItem("city")+"&APPID=APIKEY";
+       axios.get(url1)
+         .then(response => {
+           console.log(response);
+           let data = response.data;
+           let kelvin = 273.15;
+           this.weather.city= data.name;
+           this.weather.temp = Math.round(data.main.temp-kelvin);
+           this.weather.temp_max = data.main.temp_max-kelvin;
+           this.weather.temp_min = data.main.temp_min-kelvin;
+           this.weather.pressure = data.main.pressure;
+           this.weather.humidity = data.main.humidity;
+           this.weather.main_condition = data.weather[0].main;
+           this.weather.icon = data.weather[0].icon;
+           this.weather.description = data.weather[0].description;
+           this.weather.wind_speed = data.wind.speed;
 
-           })
-       },6000);
+         });
      }
 
 
