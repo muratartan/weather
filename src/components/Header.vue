@@ -3,7 +3,11 @@
     <div class="container-fluid">
         <!-- As a link -->
         <nav class="navbar fixed-top ">
-            <router-link tag="a" to="/" class="navbar-brand">WeatherApp</router-link>
+            <router-link
+              tag="a"
+              to="/"
+              @click.native="deleteStorageCity"
+              class="navbar-brand">WeatherApp</router-link>
         </nav>
     </div>
 
@@ -14,6 +18,13 @@
 
 <script>
 
+  export default {
+    methods : {
+      deleteStorageCity() {
+        localStorage.removeItem("city")
+      }
+    }
+  }
 
 
 

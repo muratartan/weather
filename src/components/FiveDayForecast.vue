@@ -59,7 +59,7 @@
         },
         created() {
 
-          let url2 = "http://api.openweathermap.org/data/2.5/forecast?q="+localStorage.getItem("city")+"&APPID=APIKEY";
+          let url2 = "http://api.openweathermap.org/data/2.5/forecast?q="+localStorage.getItem("city")+"&APPID=39eab19b26cc141b0f4f643549c56dd7";
           axios.get(url2)
             .then(response => {
               console.log(response);

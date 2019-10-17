@@ -12,9 +12,34 @@ Vue.use(VueRouter);
 export const router = new VueRouter({
 
     routes : [
-        { path : "/" , component : Home},
-        { path : "/currentWeather" , component : CurrentWeather},
-        { path : "/fiveday", component : FiveDayForecast}
+        { path : "/" ,
+                 component : Home,
+
+        },
+        { path :
+            "/currentWeather" ,
+            component : CurrentWeather,
+                 beforeEnter(to,from,next) {
+                     if(localStorage.key(1)) {
+                         next()
+                     } else {
+                         next("/")
+                     }
+                 }
+
+        },
+        { path :
+            "/fiveday",
+            component : FiveDayForecast,
+                 beforeEnter(to,from,next) {
+                     if(localStorage.key(1)) {
+                         next()
+                     } else {
+                         next("/")
+                     }
+                 }
+
+        }
 
     ],
     mode : "history"

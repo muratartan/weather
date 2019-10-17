@@ -16,14 +16,11 @@
                             @keydown.enter="setLocation"
                             placeholder="Search for location..."
                             aria-describedby="button-addon2">
-                    <div class="input-group-append">
-                        <router-link
-                                tag="button"
-                                to="/currentWeather"
-                                @click.native="setLocation"
-                                class="btn btn-secondary"
-                                id="button-addon2">Search</router-link>
+
+                  <div class="input-group-append">
+                     <button class="btn btn-secondary" id="button-addon2" @click="setLocation">Search</button>
                     </div>
+
                 </div>
 
             </div>
@@ -50,7 +47,8 @@
         },
         methods : {
             setLocation() {
-              localStorage.setItem("city" , this.location)
+              localStorage.setItem("city" , this.location);
+              this.$router.push("/currentWeather")
             },
         }
     }

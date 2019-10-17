@@ -1,33 +1,51 @@
 <template>
 
+  <div class="container-fluid">
 
-
-
-<div class="container-fluid">
-    <div class="search" v-if="weather.length<=0"><img src="https://img.icons8.com/color/96/000000/search.png"></div>
-  <div v-else>
-    <div class="card mb-3 mx-auto" style="max-width: 540px;">
-        <div class="row no-gutters">
+    <div class="container-fluid" v-if="showWeather">
+      <div class="search" v-if="weather.length<=0"><img src="https://img.icons8.com/color/96/000000/search.png"></div>
+      <div v-else>
+        <div class="card mb-3 mx-auto" style="max-width: 540px;">
+          <div class="row no-gutters">
             <div class="col-md-4" style="display: flex; align-items: center;justify-content: center;background-color: #dcfffc;">
-                <img style="width: 130px" :src="icon='http://openweathermap.org/img/wn/'+weather.icon+'@2x.png'" class="card-img" alt="...">
+              <img style="width: 130px" :src="icon='http://openweathermap.org/img/wn/'+weather.icon+'@2x.png'" class="card-img" alt="...">
             </div>
             <div class="col-md-8">
-                <div class="card-body">
-                    <h2 class="card-title">{{weather.city}}</h2>
-                    <p class="card-text"><span style="font-size: 18px">{{weather.main_condition}}</span><span style="padding-left: 130px;top: 40px; font-size: 60px;position: absolute">{{weather.temp}}°C</span></p>
-                    <p class="card-text" style="font-size: 15px"><small>{{weather.description}}</small></p>
-                  <p class="card-text"><span><img src="https://img.icons8.com/officexs/20/000000/dew-point.png"> {{weather.humidity}}%</span><span class="pl-5"><img src="https://img.icons8.com/officexs/20/000000/atmospheric-pressure.png"> {{weather.pressure}}mPa</span></p>
-                </div>
+              <div class="card-body">
+                <h2 class="card-title">{{weather.city}}</h2>
+                <p class="card-text"><span style="font-size: 18px">{{weather.main_condition}}</span><span style="padding-left: 130px;top: 40px; font-size: 60px;position: absolute">{{weather.temp}}°C</span></p>
+                <p class="card-text" style="font-size: 15px"><small>{{weather.description}}</small></p>
+                <p class="card-text"><span><img src="https://img.icons8.com/officexs/20/000000/dew-point.png"> {{weather.humidity}}%</span><span class="pl-5"><img src="https://img.icons8.com/officexs/20/000000/atmospheric-pressure.png"> {{weather.pressure}}mPa</span></p>
+              </div>
             </div>
-          <hr>
+            <hr>
+          </div>
         </div>
-    </div>
-    <div class="mx-auto mb-4 mt-3" style="width: 540px">
-      <button @click="$router.push('/fiveday')" class="btn btn-outline-light btn-block">click here for 5 day / 3 hour forecast</button>
-    </div>
-  </div>
+        <div class="mx-auto mb-4 mt-3" style="width: 540px">
+          <button @click="$router.push('/fiveday')" class="btn btn-outline-light btn-block">click here for 5 day / 3 hour forecast</button>
+        </div>
+      </div>
 
-</div>
+    </div>
+
+    <div class="container-fluid" v-else>
+
+      <div class="row">
+        <div class="col-sm-6 mx-auto">
+          <div class="card">
+            <h5 class="card-header">Featured</h5>
+            <div class="card-body">
+              <h5 class="card-title">Special title treatment</h5>
+              <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+              <button @click="goHome" class="btn btn-primary">Go home</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
 
 
 </template>
@@ -52,32 +70,57 @@
                wind_speed : "",
                icon : ""
              },
+             showWeather : null
 
            }
        },
 
      methods : {
-
+       goHome () {
+         localStorage.removeItem("city");
+         this.$router.push("/");
+       }
      },
 
      created() {
 
-       let url1 = "http://api.openweathermap.org/data/2.5/weather?q="+localStorage.getItem("city")+"&APPID=APIKEY";
+       let url1 = "http://api.openweathermap.org/data/2.5/weather?q="+localStorage.getItem("city")+"&APPID=39eab19b26cc141b0f4f643549c56dd7";
        axios.get(url1)
          .then(response => {
            console.log(response);
-           let data = response.data;
-           let kelvin = 273.15;
-           this.weather.city= data.name;
-           this.weather.temp = Math.round(data.main.temp-kelvin);
-           this.weather.temp_max = data.main.temp_max-kelvin;
-           this.weather.temp_min = data.main.temp_min-kelvin;
-           this.weather.pressure = data.main.pressure;
-           this.weather.humidity = data.main.humidity;
-           this.weather.main_condition = data.weather[0].main;
-           this.weather.icon = data.weather[0].icon;
-           this.weather.description = data.weather[0].description;
-           this.weather.wind_speed = data.wind.speed;
+
+           if (response.request.status === 200) {
+
+             this.showWeather = true;
+             let data = response.data;
+             let kelvin = 273.15;
+             this.weather.city= data.name;
+             this.weather.temp = Math.round(data.main.temp-kelvin);
+             this.weather.temp_max = data.main.temp_max-kelvin;
+             this.weather.temp_min = data.main.temp_min-kelvin;
+             this.weather.pressure = data.main.pressure;
+             this.weather.humidity = data.main.humidity;
+             this.weather.main_condition = data.weather[0].main;
+             this.weather.icon = data.weather[0].icon;
+             this.weather.description = data.weather[0].description;
+             this.weather.wind_speed = data.wind.speed;
+
+           } else {
+             this.showWeather = false
+           }
+
+           // let data = response.data;
+           // let kelvin = 273.15;
+           // this.weather.city= data.name;
+           // this.weather.temp = Math.round(data.main.temp-kelvin);
+           // this.weather.temp_max = data.main.temp_max-kelvin;
+           // this.weather.temp_min = data.main.temp_min-kelvin;
+           // this.weather.pressure = data.main.pressure;
+           // this.weather.humidity = data.main.humidity;
+           // this.weather.main_condition = data.weather[0].main;
+           // this.weather.icon = data.weather[0].icon;
+           // this.weather.description = data.weather[0].description;
+           // this.weather.wind_speed = data.wind.speed;
 
          });
      }
