@@ -2,7 +2,8 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 import Home from "./components/Home";
 import CurrentWeather from "./components/CurrentWeather";
-import FiveDayForecast from "./components/FiveDayForecast"
+import FiveDayForecast from "./components/FiveDayForecast";
+import error from "./components/error"
 
 
 
@@ -39,6 +40,17 @@ export const router = new VueRouter({
                      }
                  }
 
+        },
+        {
+            path : "/error",
+            component : error,
+                beforeEnter(to,from,next) {
+                    if(localStorage.key(1)) {
+                        next()
+                    } else {
+                        next("/")
+                    }
+                }
         }
 
     ],

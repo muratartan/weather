@@ -2,8 +2,7 @@
 
   <div class="container-fluid">
 
-    <div class="container-fluid" v-if="showWeather">
-      <div class="search" v-if="weather.length<=0"><img src="https://img.icons8.com/color/96/000000/search.png"></div>
+      <div class="search" v-if="weather.city.length<=0"><img src="https://img.icons8.com/color/96/000000/search.png"></div>
       <div v-else>
         <div class="card mb-3 mx-auto" style="max-width: 540px;">
           <div class="row no-gutters">
@@ -25,26 +24,6 @@
           <button @click="$router.push('/fiveday')" class="btn btn-outline-light btn-block">click here for 5 day / 3 hour forecast</button>
         </div>
       </div>
-
-    </div>
-
-    <div class="container-fluid" v-else>
-
-      <div class="row">
-        <div class="col-sm-6 mx-auto">
-          <div class="card">
-            <h5 class="card-header">Featured</h5>
-            <div class="card-body">
-              <h5 class="card-title">Special title treatment</h5>
-              <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-              <button @click="goHome" class="btn btn-primary">Go home</button>
-            </div>
-          </div>
-        </div>
-      </div>
-
-    </div>
-
   </div>
 
 
@@ -70,17 +49,9 @@
                wind_speed : "",
                icon : ""
              },
-             showWeather : null
-
            }
        },
 
-     methods : {
-       goHome () {
-         localStorage.removeItem("city");
-         this.$router.push("/");
-       }
-     },
 
      created() {
 
@@ -89,40 +60,22 @@
          .then(response => {
            console.log(response);
 
-           if (response.request.status === 200) {
+           let data = response.data;
+           let kelvin = 273.15;
+           this.weather.city= data.name;
+           this.weather.temp = Math.round(data.main.temp-kelvin);
+           this.weather.temp_max = data.main.temp_max-kelvin;
+           this.weather.temp_min = data.main.temp_min-kelvin;
+           this.weather.pressure = data.main.pressure;
+           this.weather.humidity = data.main.humidity;
+           this.weather.main_condition = data.weather[0].main;
+           this.weather.icon = data.weather[0].icon;
+           this.weather.description = data.weather[0].description;
+           this.weather.wind_speed = data.wind.speed;
 
-             this.showWeather = true;
-             let data = response.data;
-             let kelvin = 273.15;
-             this.weather.city= data.name;
-             this.weather.temp = Math.round(data.main.temp-kelvin);
-             this.weather.temp_max = data.main.temp_max-kelvin;
-             this.weather.temp_min = data.main.temp_min-kelvin;
-             this.weather.pressure = data.main.pressure;
-             this.weather.humidity = data.main.humidity;
-             this.weather.main_condition = data.weather[0].main;
-             this.weather.icon = data.weather[0].icon;
-             this.weather.description = data.weather[0].description;
-             this.weather.wind_speed = data.wind.speed;
-
-           } else {
-             this.showWeather = false
-           }
-
-           // let data = response.data;
-           // let kelvin = 273.15;
-           // this.weather.city= data.name;
-           // this.weather.temp = Math.round(data.main.temp-kelvin);
-           // this.weather.temp_max = data.main.temp_max-kelvin;
-           // this.weather.temp_min = data.main.temp_min-kelvin;
-           // this.weather.pressure = data.main.pressure;
-           // this.weather.humidity = data.main.humidity;
-           // this.weather.main_condition = data.weather[0].main;
-           // this.weather.icon = data.weather[0].icon;
-           // this.weather.description = data.weather[0].description;
-           // this.weather.wind_speed = data.wind.speed;
-
-         });
+         }).catch(()=>{
+             this.$router.push("/error");
+       });
      }
 
 
