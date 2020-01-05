@@ -116,7 +116,7 @@
 
 
   button {
-    color: darkblue;
+    color: blue;
 
   }
 
